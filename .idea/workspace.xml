@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="db08f46c-d775-4e4e-a0ab-3b453c3ca905" name="Default Changelist" comment="" />
+    <list default="true" id="db08f46c-d775-4e4e-a0ab-3b453c3ca905" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +15,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
@@ -26,6 +31,7 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1UKdEJWyHOcNeWt4WSYwBFpRXE1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -33,6 +39,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573996399705" />
@@ -196,7 +203,7 @@
       <workItem from="1575908522918" duration="704000" />
       <workItem from="1576106038735" duration="132435000" />
       <workItem from="1576243681752" duration="4763000" />
-      <workItem from="1576396088414" duration="25924000" />
+      <workItem from="1576396088414" duration="28067000" />
     </task>
     <servers />
   </component>
@@ -208,22 +215,22 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="679" y="115" key="#com.intellij.ide.util.MemberChooser/0.27.1920.1053@0.27.1920.1053" timestamp="1576421320507" />
-    <state width="1856" height="448" key="GridCell.Tab.0.bottom" timestamp="1576421825625">
+    <state width="1856" height="448" key="GridCell.Tab.0.bottom" timestamp="1576456914175">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1856" height="448" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1576421825625" />
-    <state width="1856" height="448" key="GridCell.Tab.0.center" timestamp="1576421825624">
+    <state width="1856" height="448" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1576456914175" />
+    <state width="1856" height="448" key="GridCell.Tab.0.center" timestamp="1576456914172">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1856" height="448" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1576421825624" />
-    <state width="1856" height="448" key="GridCell.Tab.0.left" timestamp="1576421825624">
+    <state width="1856" height="448" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1576456914172" />
+    <state width="1856" height="448" key="GridCell.Tab.0.left" timestamp="1576456914171">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1856" height="448" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1576421825624" />
-    <state width="1856" height="448" key="GridCell.Tab.0.right" timestamp="1576421825625">
+    <state width="1856" height="448" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1576456914171" />
+    <state width="1856" height="448" key="GridCell.Tab.0.right" timestamp="1576456914174">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1856" height="448" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1576421825625" />
+    <state width="1856" height="448" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1576456914174" />
     <state x="453" y="27" width="1009" height="1049" key="search.everywhere.popup" timestamp="1576456502553">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
