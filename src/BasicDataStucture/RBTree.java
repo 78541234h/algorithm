@@ -84,43 +84,30 @@ public class RBTree<T extends Comparable<T>> {
             root = new RBTreeNode<T>(value, COLOR.BLACK, null, null, null);
         } else {
             RBTreeNode<T> p = root;
+            RBTreeNode<T> gp, u, tmp;
             while (true) {
                 if (p.value.compareTo(value) == 0) return false;
-                RBTreeNode<T> tmp = (RBTreeNode<T>) (p.value.compareTo(value) > 0 ? p.leftChild : p.rightChild);
+                tmp = (RBTreeNode<T>) (p.value.compareTo(value) > 0 ? p.leftChild : p.rightChild);
                 if (tmp == null) break;
                 p = tmp;
             }
             RBTreeNode<T> n = new RBTreeNode<>(value, COLOR.RED, p, null, null);
             if (p.value.compareTo(value) > 0) p.leftChild = n;
-            else {
-                p.rightChild = n;
-            }
-            if (p.color == COLOR.RED) {
-                modifyRotate(n);
-                if (n.parent == p) {
-                    n.color = COLOR.BLACK;
-                    n = p;
-                } else p.color = COLOR.BLACK;
-                if (n == root) {
-                    n.color = COLOR.BLACK;
-                } else {
-                    RBTreeNode<T> gp;
-                    while ((p = n.parent).color == COLOR.RED) {     // RED
-                        gp = p.parent;
-                        RBTreeNode<T> u = (RBTreeNode<T>) (gp.leftChild == p ? gp.rightChild : gp.leftChild);
-                        gp.color = COLOR.RED;
-                        if (u.color == COLOR.RED) {
-                            p.color = COLOR.BLACK;
-                            u.color = COLOR.BLACK;
-                            if (gp == root) gp.color = COLOR.BLACK;
-                            else n = gp;
-                        } else {
-                            modifyRotate(n);
-                            if (n.parent == p) p.color = COLOR.BLACK;
-                            else n.color = COLOR.BLACK;
-                            break;
-                        }
-                    }
+            else p.rightChild = n;
+            while ((p = n.parent) != null && p.color == COLOR.RED) {
+                gp = p.parent;
+                u = (RBTreeNode<T>) (gp.leftChild == p ? gp.rightChild : gp.leftChild);
+                if (u != null && u.color == COLOR.RED) { // uncle is red, then uncle, parent, grandparent flip color,
+                    u.color = COLOR.BLACK;
+                    p.color = COLOR.BLACK;
+                    gp.color = gp == root ? COLOR.BLACK : COLOR.RED;
+                    n = gp;                // continue loop
+                } else {                   // uncle is null or black then rotate <= 2 times, then exit
+                    gp.color = COLOR.RED;
+                    modifyRotate(n);
+                    tmp = p.parent == n ? n : p;
+                    tmp.color = COLOR.BLACK;
+                    break;
                 }
             }
         }
