@@ -97,12 +97,13 @@ public class RBTree<T extends Comparable<T>> {
             while ((p = n.parent) != null && p.color == COLOR.RED) {
                 gp = p.parent;
                 u = (RBTreeNode<T>) (gp.leftChild == p ? gp.rightChild : gp.leftChild);
-                if (u != null && u.color == COLOR.RED) { // uncle is red, then uncle, parent, grandparent flip color,
+                if (u != null && u.color == COLOR.RED) {
+                    // uncle is red, then uncle, parent, grandparent flip color
                     u.color = COLOR.BLACK;
                     p.color = COLOR.BLACK;
                     gp.color = gp == root ? COLOR.BLACK : COLOR.RED;
-                    n = gp;                // continue loop
-                } else {                   // uncle is null or black then rotate <= 2 times, then exit
+                    n = gp;             // continue loop
+                } else {                // uncle is null or black then rotate <= 2 times, then exit
                     gp.color = COLOR.RED;
                     modifyRotate(n);
                     tmp = p.parent == n ? n : p;
@@ -116,6 +117,10 @@ public class RBTree<T extends Comparable<T>> {
 
     public RBTreeNode<T> remove(T value) {
         return null;
+    }
+
+    public boolean check(RBTree<T> tree) {
+        return false;
     }
 
     public static void main(String[] args) {
