@@ -64,14 +64,8 @@ public class RBTree<T extends Comparable<T>> {
         }
     }
 
-    private void modifyRotate(RBTreeNode<T> n) {
-        RBTreeNode<T> p = n.parent;
-        RBTreeNode<T> gp = p.parent;
-        if (p.leftChild == n && gp.leftChild == p) {
-            rightRotate(gp);
-        } else if (p.rightChild == n && gp.rightChild == p) {
-            leftRotate(gp);
-        } else {
+    private void superRotate(RBTreeNode<T> n, RBTreeNode<T> p, RBTreeNode<T> gp) {
+        if(gp != null) {
             if (p.rightChild == n && gp.leftChild == n) {
                 leftRotate(p);
                 rightRotate(gp);
@@ -79,7 +73,14 @@ public class RBTree<T extends Comparable<T>> {
                 rightRotate(p);
                 leftRotate(gp);
             }
+        } else if(p != null) {
+            if (p.leftChild == n && gp.leftChild == p) {
+                rightRotate(gp);
+            } else if (p.rightChild == n && gp.rightChild == p) {
+                leftRotate(gp);
+            }
         }
+
     }
 
     public boolean add(T value) {
@@ -108,7 +109,7 @@ public class RBTree<T extends Comparable<T>> {
                     n = gp;             // continue loop
                 } else {                // uncle is null or black then rotate <= 2 times, then exit
                     gp.color = COLOR.RED;
-                    modifyRotate(n);
+                    superRotate(n);
                     tmp = p.parent == n ? n : p;
                     tmp.color = COLOR.BLACK;
                     break;
@@ -175,10 +176,10 @@ public class RBTree<T extends Comparable<T>> {
             tmp = n;
             RBTreeNode<T> sib;
             while(n.color != COLOR.BLACK && n != root) {
-                sib = (RBTreeNode<T>) (n == n.parent.leftChild ? n.parent.rightChild : n.parent.leftChild);
-                if(sib.color == COLOR.RED) {
-                    sib.color = COLOR.BLACK;
-
+                if(n == n.parent.leftChild) {
+                    sib = (RBTreeNode<T>) n.parent.rightChild;
+                } else {
+                    sib = (RBTreeNode<T>) n.parent.leftChild;
                 }
             }
         }
