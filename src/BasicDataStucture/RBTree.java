@@ -2,11 +2,14 @@ package BasicDataStucture;
 
 import chapter3.PrintBianryTree;
 import chapter3.TreeNode;
+import com.sun.org.apache.regexp.internal.RE;
 
 public class RBTree<T extends Comparable<T>> {
     public enum COLOR {
         BLACK, RED
     }
+
+    private int blackHeight = 0;
 
     static public class RBTreeNode<T extends Comparable<T>> extends TreeNode<T> {
         public COLOR color;
@@ -28,53 +31,53 @@ public class RBTree<T extends Comparable<T>> {
     private RBTreeNode<T> root = null;
 
     private void leftRotate(RBTreeNode<T> n) {
-        RBTreeNode<T> p = n.parent;
-        p.rightChild = n.leftChild;
-        n.leftChild = p;
-        n.parent = p.parent;
-        p.parent = n;
-        if (n.parent == null) root = n;
-        else {
-            if (n.parent.leftChild == p) n.parent.leftChild = n;
-            else {
-                n.parent.rightChild = n;
+        if(n.rightChild != null) {
+            RBTreeNode<T> rc = (RBTreeNode<T>) n.rightChild;
+            rc.parent = n.parent;
+            if(n != root) {
+                if(n.parent.leftChild == n) n.parent.leftChild = rc;
+                else n.parent.rightChild = rc;
+            } else {
+                root = rc;
             }
+            if(rc.leftChild != null) ((RBTreeNode<T>)rc.leftChild).parent = n;
+            n.rightChild = rc.leftChild;
+            n.parent = rc;
+            rc.leftChild = n;
         }
     }
 
     private void rightRotate(RBTreeNode<T> n) {
-        RBTreeNode<T> p = n.parent;
-        p.leftChild = n.rightChild;
-        n.rightChild = p;
-        n.parent = p.parent;
-        p.parent = n;
-        if (n.parent == null) root = n;
-        else {
-            if (n.parent.leftChild == p) n.parent.leftChild = n;
-            else {
-                n.parent.rightChild = n;
+        if(n.leftChild != null) {
+            RBTreeNode<T> lc = (RBTreeNode<T>) n.leftChild;
+            lc.parent = n.parent;
+            if(n != root){
+                if(n == n.parent.leftChild) n.parent.leftChild = lc;
+                else n.parent.rightChild = lc;
+            } else {
+                root = lc;
             }
+            if(lc.rightChild != null)((RBTreeNode<T>)lc.rightChild).parent = n;
+            n.leftChild = lc.rightChild;
+            n.parent = lc;
+            lc.rightChild = n;
         }
     }
 
     private void modifyRotate(RBTreeNode<T> n) {
         RBTreeNode<T> p = n.parent;
         RBTreeNode<T> gp = p.parent;
-        RBTreeNode<T> tmp;
         if (p.leftChild == n && gp.leftChild == p) {
-            rightRotate(p);
+            rightRotate(gp);
         } else if (p.rightChild == n && gp.rightChild == p) {
-            leftRotate(p);
+            leftRotate(gp);
         } else {
-            tmp = p;
-            p = n;
-            n = tmp;
-            if (n.rightChild == p && gp.leftChild == n) {
+            if (p.rightChild == n && gp.leftChild == n) {
                 leftRotate(p);
-                rightRotate(p);
+                rightRotate(gp);
             } else {
                 rightRotate(p);
-                leftRotate(p);
+                leftRotate(gp);
             }
         }
     }
@@ -115,7 +118,70 @@ public class RBTree<T extends Comparable<T>> {
         return true;
     }
 
+    private RBTreeNode<T> successor(RBTreeNode<T> n) {
+        TreeNode<T> rc = n.rightChild;
+        if(rc != null) while(rc.leftChild != null) rc = rc.leftChild;
+        return (RBTreeNode<T>) rc;
+    }
+
+    private void removeExposedNode(RBTreeNode<T> n) {
+        if(n != null) {
+            if(n == root) {
+                root = null;
+            } else {
+                RBTreeNode<T> c = (RBTreeNode<T>) (n.leftChild == null ? n.rightChild : n.leftChild);
+                if(c!=null) {
+                    c.parent = n.parent;
+                }
+                if(n == n.parent.leftChild) {
+                    n.parent.leftChild = c;
+                } else {
+                    n.parent.rightChild = c;
+                }
+                n.parent = null;
+                n.leftChild = null;
+                n.rightChild = null;
+            }
+        }
+    }
+
+
+
     public RBTreeNode<T> remove(T value) {
+        RBTreeNode<T> n,tmp,s;
+        n = root;
+        while(n != null) {
+            if(n.value == value || n.value.equals(value))
+                break;
+            tmp = (RBTreeNode<T>) (n.value.compareTo(value) > 0 ? n.leftChild : n.rightChild);
+            n = tmp;
+        }
+        if(n == null)
+            return null;
+        else if(n == root) {
+            return root = null;
+        }
+        else if(n.leftChild != null && n.rightChild != null) {
+            s = successor(n);
+            n.value = s.value;
+            n = s;
+        }
+        if(n.color == COLOR.RED) {
+            removeExposedNode(n);
+        } else if(n.rightChild != null) {
+            removeExposedNode(n);
+            ((RBTreeNode<T>)n.rightChild).color = COLOR.BLACK;
+        } else {
+            tmp = n;
+            RBTreeNode<T> sib;
+            while(n.color != COLOR.BLACK && n != root) {
+                sib = (RBTreeNode<T>) (n == n.parent.leftChild ? n.parent.rightChild : n.parent.leftChild);
+                if(sib.color == COLOR.RED) {
+                    sib.color = COLOR.BLACK;
+
+                }
+            }
+        }
         return null;
     }
 
