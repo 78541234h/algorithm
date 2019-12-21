@@ -2,11 +2,10 @@ package BasicDataStucture;
 
 import chapter3.PrintBianryTree;
 import chapter3.TreeNode;
-import com.sun.org.apache.regexp.internal.RE;
 
 public class RBTree<T extends Comparable<T>> {
     public enum COLOR {
-        BLACK, RED
+        BLACK, RED, UNKNOWN
     }
 
     private int blackHeight = 0;
@@ -14,6 +13,15 @@ public class RBTree<T extends Comparable<T>> {
     static public class RBTreeNode<T extends Comparable<T>> extends TreeNode<T> {
         public COLOR color;
         public RBTreeNode<T> parent;
+
+        public RBTreeNode<T> left() {
+            return (RBTreeNode<T>) super.leftChild;
+        }
+
+        public RBTreeNode<T> right() {
+            return (RBTreeNode<T>) super.rightChild;
+        }
+
 
         public RBTreeNode(T value, COLOR color, RBTreeNode<T> parent, RBTreeNode<T> leftChild, RBTreeNode<T> rightChild) {
             super(value, leftChild, rightChild);
@@ -31,16 +39,16 @@ public class RBTree<T extends Comparable<T>> {
     private RBTreeNode<T> root = null;
 
     private void leftRotate(RBTreeNode<T> n) {
-        if(n.rightChild != null) {
-            RBTreeNode<T> rc = (RBTreeNode<T>) n.rightChild;
+        if (n.rightChild != null) {
+            RBTreeNode<T> rc = n.right();
             rc.parent = n.parent;
-            if(n != root) {
-                if(n.parent.leftChild == n) n.parent.leftChild = rc;
+            if (n != root) {
+                if (n.parent.leftChild == n) n.parent.leftChild = rc;
                 else n.parent.rightChild = rc;
             } else {
                 root = rc;
             }
-            if(rc.leftChild != null) ((RBTreeNode<T>)rc.leftChild).parent = n;
+            if (rc.leftChild != null) rc.left().parent = n;
             n.rightChild = rc.leftChild;
             n.parent = rc;
             rc.leftChild = n;
@@ -48,39 +56,20 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     private void rightRotate(RBTreeNode<T> n) {
-        if(n.leftChild != null) {
-            RBTreeNode<T> lc = (RBTreeNode<T>) n.leftChild;
+        if (n.leftChild != null) {
+            RBTreeNode<T> lc = n.left();
             lc.parent = n.parent;
-            if(n != root){
-                if(n == n.parent.leftChild) n.parent.leftChild = lc;
+            if (n != root) {
+                if (n == n.parent.leftChild) n.parent.leftChild = lc;
                 else n.parent.rightChild = lc;
             } else {
                 root = lc;
             }
-            if(lc.rightChild != null)((RBTreeNode<T>)lc.rightChild).parent = n;
+            if (lc.rightChild != null) lc.right().parent = n;
             n.leftChild = lc.rightChild;
             n.parent = lc;
             lc.rightChild = n;
         }
-    }
-
-    private void superRotate(RBTreeNode<T> n, RBTreeNode<T> p, RBTreeNode<T> gp) {
-        if(gp != null) {
-            if (p.rightChild == n && gp.leftChild == n) {
-                leftRotate(p);
-                rightRotate(gp);
-            } else {
-                rightRotate(p);
-                leftRotate(gp);
-            }
-        } else if(p != null) {
-            if (p.leftChild == n && gp.leftChild == p) {
-                rightRotate(gp);
-            } else if (p.rightChild == n && gp.rightChild == p) {
-                leftRotate(gp);
-            }
-        }
-
     }
 
     public boolean add(T value) {
@@ -91,7 +80,7 @@ public class RBTree<T extends Comparable<T>> {
             RBTreeNode<T> gp, u, tmp;
             while (true) {
                 if (p.value.compareTo(value) == 0) return false;
-                tmp = (RBTreeNode<T>) (p.value.compareTo(value) > 0 ? p.leftChild : p.rightChild);
+                tmp = p.value.compareTo(value) > 0 ? p.left() : p.right();
                 if (tmp == null) break;
                 p = tmp;
             }
@@ -100,7 +89,7 @@ public class RBTree<T extends Comparable<T>> {
             else p.rightChild = n;
             while ((p = n.parent) != null && p.color == COLOR.RED) {
                 gp = p.parent;
-                u = (RBTreeNode<T>) (gp.leftChild == p ? gp.rightChild : gp.leftChild);
+                u = gp.leftChild == p ? gp.right() : gp.left();
                 if (u != null && u.color == COLOR.RED) {
                     // uncle is red, then uncle, parent, grandparent flip color
                     u.color = COLOR.BLACK;
@@ -109,9 +98,21 @@ public class RBTree<T extends Comparable<T>> {
                     n = gp;             // continue loop
                 } else {                // uncle is null or black then rotate <= 2 times, then exit
                     gp.color = COLOR.RED;
-                    superRotate(n);
-                    tmp = p.parent == n ? n : p;
-                    tmp.color = COLOR.BLACK;
+                    if (n == p.leftChild && p == gp.leftChild) {
+                        p.color = COLOR.BLACK;
+                        rightRotate(gp);
+                    } else if (n == p.rightChild && p == gp.rightChild) {
+                        p.color = COLOR.BLACK;
+                        leftRotate(gp);
+                    } else if (n == p.leftChild && p == gp.rightChild) {
+                        n.color = COLOR.BLACK;
+                        rightRotate(p);
+                        leftRotate(gp);
+                    } else {
+                        n.color = COLOR.BLACK;
+                        leftRotate(p);
+                        rightRotate(gp);
+                    }
                     break;
                 }
             }
@@ -120,70 +121,128 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     private RBTreeNode<T> successor(RBTreeNode<T> n) {
-        TreeNode<T> rc = n.rightChild;
-        if(rc != null) while(rc.leftChild != null) rc = rc.leftChild;
-        return (RBTreeNode<T>) rc;
+        RBTreeNode<T> rc = n.right();
+        if (rc != null) while (rc.leftChild != null) rc = rc.left();
+        return rc;
     }
 
-    private void removeExposedNode(RBTreeNode<T> n) {
-        if(n != null) {
-            if(n == root) {
-                root = null;
-            } else {
-                RBTreeNode<T> c = (RBTreeNode<T>) (n.leftChild == null ? n.rightChild : n.leftChild);
-                if(c!=null) {
-                    c.parent = n.parent;
-                }
-                if(n == n.parent.leftChild) {
-                    n.parent.leftChild = c;
-                } else {
-                    n.parent.rightChild = c;
-                }
-                n.parent = null;
-                n.leftChild = null;
-                n.rightChild = null;
-            }
+    private RBTreeNode<T> removeLeaf(RBTreeNode<T> n) {
+        if (n == root) {
+            root = null;
+        } else {
+            if (n == n.parent.leftChild)
+                n.parent.leftChild = null;
+            else n.parent.rightChild = null;
+            n.parent = null;
         }
+        return n;
     }
-
-
 
     public RBTreeNode<T> remove(T value) {
-        RBTreeNode<T> n,tmp,s;
+        RBTreeNode<T> n, s, tmp;
         n = root;
-        while(n != null) {
-            if(n.value == value || n.value.equals(value))
+        while (n != null) {
+            if (n.value == value || n.value.equals(value))
                 break;
-            tmp = (RBTreeNode<T>) (n.value.compareTo(value) > 0 ? n.leftChild : n.rightChild);
-            n = tmp;
+            n = n.value.compareTo(value) > 0 ? n.left() : n.right();
         }
-        if(n == null)
+        if (n == null)
             return null;
-        else if(n == root) {
-            return root = null;
-        }
-        else if(n.leftChild != null && n.rightChild != null) {
+        if (n.leftChild != null && n.rightChild != null) {
             s = successor(n);
             n.value = s.value;
             n = s;
         }
-        if(n.color == COLOR.RED) {
-            removeExposedNode(n);
-        } else if(n.rightChild != null) {
-            removeExposedNode(n);
-            ((RBTreeNode<T>)n.rightChild).color = COLOR.BLACK;
+        //n has no more than one child
+        if (n.color == COLOR.RED) { // the node will be removed is red, directly removed
+            removeLeaf(n);
         } else {
-            tmp = n;
-            RBTreeNode<T> sib;
-            while(n.color != COLOR.BLACK && n != root) {
-                if(n == n.parent.leftChild) {
-                    sib = (RBTreeNode<T>) n.parent.rightChild;
-                } else {
-                    sib = (RBTreeNode<T>) n.parent.leftChild;
+            if (n.rightChild != null || n.leftChild != null) {
+                // the node will be removed is black, and has one child then let its child replace it
+                tmp = n.rightChild == null ? n.left() : n.right();
+                if (n == n.parent.leftChild)
+                    n.parent.leftChild = tmp;
+                else n.parent.rightChild = tmp;
+                tmp.parent = n.parent;
+                tmp.color = COLOR.BLACK;
+                n.rightChild = n.parent = null;
+                if (n == root) root = tmp;
+            } else {
+                // the node will be removed is black without child
+                tmp = n;
+                RBTreeNode<T> sib;
+                while (n.color == COLOR.BLACK && n != root) {
+                    // n represent the node which is one black-height less than it should be
+                    if (n == n.parent.leftChild) {
+                        sib = n.parent.right();
+                        if (sib.color == COLOR.RED) {
+                            sib.color = COLOR.BLACK;
+                            sib.parent.color = COLOR.RED;
+                            leftRotate(sib.parent);
+                            sib = n.parent.right();
+                        }
+                        if (colorOf(sib.leftChild) == COLOR.BLACK &&
+                                colorOf(sib.rightChild) == COLOR.BLACK) {
+                            sib.color = COLOR.RED;
+                            n = n.parent; //continue
+                        } else {
+                            if (colorOf(sib.rightChild) == COLOR.BLACK) {
+                                sib.color = COLOR.RED;
+                                sib.left().color = COLOR.BLACK;
+                                rightRotate(sib);
+                                sib = sib.parent;
+                            }
+                            sib.color = sib.parent.color;
+                            sib.parent.color = COLOR.BLACK;
+                            sib.right().color = COLOR.BLACK;
+                            leftRotate(sib.parent);
+                            break;
+                        }
+                    } else {
+                        sib = n.parent.left();
+                        if (sib.color == COLOR.RED) {
+                            sib.color = COLOR.BLACK;
+                            sib.parent.color = COLOR.RED;
+                            rightRotate(sib.parent);
+                            sib = n.parent.left();
+                        }
+                        if (colorOf(sib.leftChild) == COLOR.BLACK && colorOf(sib.rightChild) == COLOR.BLACK) {
+                            sib.color = COLOR.RED;
+                            n = n.parent;
+                        } else {
+                            if (colorOf(sib.leftChild) == COLOR.BLACK) {
+                                sib.color = COLOR.RED;
+                                sib.left().color = COLOR.BLACK;
+                                leftRotate(sib);
+                                sib = sib.parent;
+                            }
+                            sib.color = sib.parent.color;
+                            sib.parent.color = COLOR.BLACK;
+                            sib.left().color = COLOR.BLACK;
+                            rightRotate(sib.parent);
+                            break;
+                        }
+                    }
                 }
+                n.color = COLOR.BLACK;
+                n = removeLeaf(tmp);
             }
         }
-        return null;
+        return n;
+    }
+
+    private void setColor(TreeNode<T> n, COLOR color) {
+        if (n instanceof RBTreeNode) {
+            ((RBTreeNode<T>) n).color = color;
+        }
+    }
+
+    private RBTreeNode<T> sibOf(RBTreeNode<T> n) {
+        return (RBTreeNode<T>) (n.parent == null ? null : n == n.parent.leftChild ? n.parent.rightChild : n.parent.rightChild);
+    }
+
+    private COLOR colorOf(TreeNode<T> n) {
+        return n == null ? COLOR.BLACK : n instanceof RBTreeNode ? ((RBTreeNode<T>) n).color : COLOR.UNKNOWN;
     }
 
     public boolean check(RBTree<T> tree) {
@@ -192,9 +251,12 @@ public class RBTree<T extends Comparable<T>> {
 
     public static void main(String[] args) {
         RBTree<Integer> tree = new RBTree<>();
-        for (int i = 11; i >= 1; i--) {
+        for (int i = 20; i >= 1; i--) {
             tree.add(i);
         }
+        PrintBianryTree.printTree(tree.root);
+        tree.remove(10);
+        System.out.println("======================================================");
         PrintBianryTree.printTree(tree.root);
     }
 }
