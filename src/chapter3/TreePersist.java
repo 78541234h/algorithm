@@ -101,7 +101,7 @@ public class TreePersist {
         System.out.println(tree);
         TreeNode<Integer> recover = recoverTree(tree);
         PrintBianryTree.printTree(recover);
-        System.out.println("===================");
+        System.out.println("===============================================================");
         tree = persistByLevel(node);
         System.out.println(tree);
         recover = recoverByLevel(tree);
