@@ -34,7 +34,7 @@ public class PrintBianryTree {
     }
 
     public static void main(String[] args) {
-        //TreeNode root = TreeUtil.mockTree1();
-        //print(root, 0, Type.ROOT);
+        TreeNode<Integer> root = TreeUtil.mockTree1();
+        print(root, 0, Type.ROOT);
     }
 }

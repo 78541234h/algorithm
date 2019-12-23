@@ -246,6 +246,7 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     public boolean check(RBTree<T> tree) {
+
         return false;
     }
 
