@@ -19,6 +19,17 @@ class TreeUtil {
         }
     }
 
+    static TreeNode<Integer> mockTree2() {
+        TreeNode<Integer> root = new TreeNode<>(4);
+        root.leftChild = new TreeNode<>(2);
+        root.leftChild.leftChild = new TreeNode<>(1);
+        root.leftChild.rightChild = new TreeNode<>(3);
+        root.rightChild = new TreeNode<>(6);
+        root.rightChild.leftChild=  new TreeNode<>(5);
+        root.rightChild.rightChild = new TreeNode<>(7);
+        return root;
+    }
+
     static TreeNode<Integer> mockTree1() {
         TreeNode<Integer> root = new TreeNode<>(1);
         root.leftChild = new TreeNode<>(200000);
