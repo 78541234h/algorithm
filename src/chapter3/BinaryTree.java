@@ -6,12 +6,12 @@ import static chapter3.TreeUtil.add;
 
 public class BinaryTree {
 
-/*
-    public static void visit(TreeNode node) {
-        System.out.print(node.val + " ");
+
+    public static <T> void visit(TreeNode<T> node) {
+        System.out.print(node.value + " ");
     }
 
-    public void preOrderRecur(TreeNode root) {
+    public static <T>  void preOrderRecur(TreeNode<T> root) {
         if (root != null) {
             visit(root);
             preOrderRecur(root.leftChild);
@@ -19,7 +19,7 @@ public class BinaryTree {
         }
     }
 
-    public void midOrderRecur(TreeNode root) {
+    public static <T> void midOrderRecur(TreeNode<T> root) {
         if (root != null) {
             midOrderRecur(root.leftChild);
             visit(root);
@@ -27,7 +27,7 @@ public class BinaryTree {
         }
     }
 
-    public void postOrderRecur(TreeNode root) {
+    public static <T> void postOrderRecur(TreeNode<T> root) {
         if (root != null) {
             postOrderRecur(root.leftChild);
             postOrderRecur(root.rightChild);
@@ -35,12 +35,12 @@ public class BinaryTree {
         }
     }
 
-    public void preOrder(TreeNode root) {
+    public static <T> void preOrder(TreeNode<T> root) {
         if (root != null) {
-            Stack<TreeNode> stack = new Stack<>();
+            Stack<TreeNode<T>> stack = new Stack<>();
             stack.push(root);
             while (!stack.empty()) {
-                TreeNode node = stack.pop();
+                TreeNode<T> node = stack.pop();
                 visit(node);
                 if (node.rightChild != null)
                     stack.push(node.rightChild);
@@ -50,15 +50,15 @@ public class BinaryTree {
         }
     }
 
-    public void midOrder(TreeNode root) {
+    public static <T> void midOrder(TreeNode<T> root) {
         if (root != null) {
-            Stack<TreeNode> stack = new Stack<>();
+            Stack<TreeNode<T>> stack = new Stack<>();
             while (root != null || !stack.empty()) {
                 if (root != null) {
                     stack.push(root);
                     root = root.leftChild;
                 } else {
-                    TreeNode node = stack.pop();
+                    TreeNode<T> node = stack.pop();
                     visit(node);
                     root = node.rightChild;
                 }
@@ -67,13 +67,13 @@ public class BinaryTree {
     }
 
 
-    public void postOrderWithTwoStack(TreeNode root) {
+    public static <T> void postOrderWithTwoStack(TreeNode<T> root) {
         if (root != null) {
-            Stack<TreeNode> s1 = new Stack<>();
-            Stack<TreeNode> s2 = new Stack<>();
+            Stack<TreeNode<T>> s1 = new Stack<>();
+            Stack<TreeNode<T>> s2 = new Stack<>();
             s1.push(root);
             while (!s1.empty()) {
-                TreeNode node = s1.pop();
+                TreeNode<T> node = s1.pop();
                 s2.push(node);
                 if (node.leftChild != null)
                     s1.push(node.leftChild);
@@ -86,10 +86,10 @@ public class BinaryTree {
         }
     }
 
-    public static void postOrderWithOneStack(TreeNode root) {
+    public static <T> void postOrderWithOneStack(TreeNode<T> root) {
         if (root != null) {
-            TreeNode last  = null, peek = null;
-            Stack<TreeNode> s = new Stack<>();
+            TreeNode<T> last  = null, peek = null;
+            Stack<TreeNode<T>> s = new Stack<>();
             s.push(root);
             while (!s.empty()) {
                 peek = s.peek();
@@ -106,7 +106,7 @@ public class BinaryTree {
     }
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(6);
+        TreeNode<Integer> root = new TreeNode<>(6);
         add(root, 7);
         add(root, 4);
         add(root, 2);
@@ -116,5 +116,5 @@ public class BinaryTree {
         postOrderWithOneStack(root);
     }
 
- */
+ 
 }
