@@ -2,12 +2,12 @@ package chapter3;
 
 public class Morris {
     public static void main(String[] args) {
-        TreeNode<Integer> root = TreeUtil.mockTree1();
+        TreeNode<Integer> root = TreeUtil.mockTree2();
         PrintBianryTree.printTree(root);
         Morris m = new Morris();
         m.morris(root);
         System.out.print("\n");
-        m.preOrderWalk(root);
+        m.postOrderWalk(root);
     }
 
     private <T> TreeNode<T> predecessor(TreeNode<T> n) {
@@ -97,18 +97,35 @@ public class Morris {
                     head = head.leftChild;
                     continue;
                 }else {
-
+                    pre.rightChild = null;
+                    reverseRightEdge(head.leftChild);
+                    visitRightEdge(pre);
+                    reverseRightEdge(pre);
                 }
             }
             head = head.rightChild;
         }
+        head = reverseRightEdge(root);
+        visitRightEdge(head);
+        reverseRightEdge(head);
     }
 
-    private <T> void reverseRightBoundary(TreeNode<T> root) {
-        TreeNode<T> head = root;
-        TreeNode<T> pre = null;
-        while(head != null) {
-
+    private <T> void visitRightEdge(TreeNode<T> from) {
+        while(from != null) {
+            visit(from);
+            from = from.rightChild;
         }
+    }
+
+    private <T> TreeNode<T> reverseRightEdge(TreeNode<T> from) {
+        TreeNode<T> head = from;
+        TreeNode<T> pre = null, next;
+        while(head != null) {
+            next = head.rightChild;
+            head.rightChild = pre;
+            pre = head;
+            head = next;
+        }
+        return pre;
     }
 }
