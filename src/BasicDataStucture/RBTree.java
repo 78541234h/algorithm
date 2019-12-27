@@ -139,7 +139,7 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     public RBTreeNode<T> remove(T value) {
-        RBTreeNode<T> n, s, tmp;
+        RBTreeNode<T> n, tmp;
         n = root;
         while (n != null) {
             if (n.value == value || n.value.equals(value))
@@ -149,24 +149,17 @@ public class RBTree<T extends Comparable<T>> {
         if (n == null)
             return null;
         if (n.leftChild != null && n.rightChild != null) {
-            s = successor(n);
-            n.value = s.value;
-            n = s;
+            tmp = successor(n);
+            n.value = tmp.value;
+            n = tmp;
         }
         //n has no more than one child
-        if (n.color == COLOR.RED) { // the node will be removed is red, directly removed
-            removeLeaf(n);
-        } else {
-            if (n.rightChild != null || n.leftChild != null) {
-                // the node will be removed is black, and has one child then let its child replace it
-                tmp = n.rightChild == null ? n.left() : n.right();
-                if (n == n.parent.leftChild)
-                    n.parent.leftChild = tmp;
-                else n.parent.rightChild = tmp;
-                tmp.parent = n.parent;
-                tmp.color = COLOR.BLACK;
-                n.rightChild = n.parent = null;
-                if (n == root) root = tmp;
+        if (n.color == COLOR.BLACK) {
+            tmp = n.right() == null ? n.left() : n.right();
+            if (tmp != null) {
+                // the node will be removed is black, and has one child then let its child replace it, then delete it child
+                n.value = tmp.value;
+                n = tmp;
             } else {
                 // the node will be removed is black without child
                 tmp = n;
@@ -225,10 +218,10 @@ public class RBTree<T extends Comparable<T>> {
                     }
                 }
                 n.color = COLOR.BLACK;
-                n = removeLeaf(tmp);
+                n = tmp;
             }
         }
-        return n;
+        return  removeLeaf(n);
     }
 
     private void setColor(TreeNode<T> n, COLOR color) {
