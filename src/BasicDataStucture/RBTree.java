@@ -159,7 +159,6 @@ public class RBTree<T extends Comparable<T>> {
             if (tmp != null) {
                 // the node will be removed is black, and has one child then let its child replace it, then delete it child
                 n.value = tmp.value;
-                n = tmp;
             } else {
                 // the node will be removed is black without child
                 tmp = n;
@@ -218,8 +217,8 @@ public class RBTree<T extends Comparable<T>> {
                     }
                 }
                 n.color = COLOR.BLACK;
-                n = tmp;
             }
+            n = tmp;
         }
         return  removeLeaf(n);
     }
