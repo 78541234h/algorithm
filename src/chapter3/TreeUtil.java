@@ -1,53 +1,56 @@
 package chapter3;
 
+import BasicDataStucture.BinaryTreeNode;
+import BasicDataStucture.DefaultTreeNode;
+
 class TreeUtil {
-    static <T extends Comparable<T>> void add(TreeNode<T> root, T value) {
+    static <T extends Comparable<T>> void add(BinaryTreeNode<T> root, T value) {
         while (true) {
-            if (root.value == value ||root.value.equals(value) )
+            if (root.value() == value || root.value().equals(value))
                 return;
-            else if (root.value.compareTo(value) > 0) {
-                if (root.leftChild == null)
-                    root.leftChild = new TreeNode<T>(value, null, null);
+            else if (root.value().compareTo(value) > 0) {
+                if (root.left() == null)
+                    root.setLeft(new DefaultTreeNode<T>(value));
                 else
-                    root = root.leftChild;
+                    root = root.left();
             } else {
-                if (root.rightChild == null)
-                    root.rightChild = new TreeNode<T>(value, null, null);
+                if (root.right() == null)
+                    root.setRight(new DefaultTreeNode<T>(value));
                 else
-                    root = root.rightChild;
+                    root = root.right();
             }
         }
     }
 
-    static TreeNode<Integer> mockTree2() {
-        TreeNode<Integer> root = new TreeNode<>(4);
-        root.leftChild = new TreeNode<>(2);
-        root.leftChild.leftChild = new TreeNode<>(1);
-        root.leftChild.rightChild = new TreeNode<>(3);
-        root.rightChild = new TreeNode<>(6);
-        root.rightChild.leftChild=  new TreeNode<>(5);
-        root.rightChild.rightChild = new TreeNode<>(7);
+    static DefaultTreeNode<Integer> mockTree2() {
+        DefaultTreeNode<Integer> root = new DefaultTreeNode<>(4);
+        root.setLeft(new DefaultTreeNode<>(2));
+        root.left().setLeft(new DefaultTreeNode<>(1));
+        root.left().setRight(new DefaultTreeNode<>(3));
+        root.setRight(new DefaultTreeNode<>(6));
+        root.right().setLeft(new DefaultTreeNode<>(5));
+        root.right().setRight(new DefaultTreeNode<>(7));
         return root;
     }
 
-    static TreeNode<Integer> mockTree1() {
-        TreeNode<Integer> root = new TreeNode<>(1);
-        root.leftChild = new TreeNode<>(200000);
-        root.leftChild.rightChild = new TreeNode<>(4);
-        root.leftChild.rightChild.leftChild = new TreeNode<>(7);
-        root.leftChild.rightChild.rightChild = new TreeNode<>(8);
-        root.leftChild.rightChild.rightChild.rightChild = new TreeNode<>(11);
-        root.leftChild.rightChild.rightChild.rightChild.leftChild = new TreeNode<>(13);
-        root.leftChild.rightChild.rightChild.rightChild.rightChild = new TreeNode<>(14);
+    static DefaultTreeNode<Integer> mockTree1() {
+        DefaultTreeNode<Integer> root = new DefaultTreeNode<>(1);
+        root.setLeft(new DefaultTreeNode<>(200000));
+        root.left().setRight(new DefaultTreeNode<>(4));
+        root.left().right().setLeft(new DefaultTreeNode<>(7));
+        root.left().right().setRight(new DefaultTreeNode<>(8));
+        root.left().right().right().setRight(new DefaultTreeNode<>(11));
+        root.left().right().right().right().setLeft(new DefaultTreeNode<>(13));
+        root.left().right().right().right().setRight(new DefaultTreeNode<>(14));
 
-        root.rightChild = new TreeNode<>(3);
-        root.rightChild.leftChild = new TreeNode<>(5);
-        root.rightChild.rightChild = new TreeNode<>(6);
-        root.rightChild.leftChild.leftChild = new TreeNode<>(9);
-        root.rightChild.leftChild.rightChild = new TreeNode<>(10);
-        root.rightChild.leftChild.leftChild.leftChild = new TreeNode<>(12);
-        root.rightChild.leftChild.leftChild.leftChild.leftChild = new TreeNode<>(15);
-        root.rightChild.leftChild.leftChild.leftChild.rightChild = new TreeNode<>(16);
+        root.setRight(new DefaultTreeNode<>(3));
+        root.right().setLeft(new DefaultTreeNode<>(5));
+        root.right().setRight(new DefaultTreeNode<>(6));
+        root.right().left().setLeft(new DefaultTreeNode<>(9));
+        root.right().left().setRight(new DefaultTreeNode<>(10));
+        root.right().left().left().setLeft(new DefaultTreeNode<>(12));
+        root.right().left().left().left().setLeft(new DefaultTreeNode<>(15));
+        root.right().left().left().left().setRight(new DefaultTreeNode<>(16));
 
         return root;
     }

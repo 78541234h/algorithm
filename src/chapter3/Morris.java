@@ -1,8 +1,11 @@
 package chapter3;
 
+import BasicDataStucture.BinaryTreeNode;
+import BasicDataStucture.DefaultTreeNode;
+
 public class Morris {
     public static void main(String[] args) {
-        TreeNode<Integer> root = TreeUtil.mockTree2();
+        DefaultTreeNode<Integer> root = TreeUtil.mockTree2();
         PrintBianryTree.printTree(root);
         Morris m = new Morris();
         m.morris(root);
@@ -10,119 +13,118 @@ public class Morris {
         m.postOrderWalk(root);
     }
 
-    private <T> TreeNode<T> predecessor(TreeNode<T> n) {
-        TreeNode<T> pre = n.leftChild;
+    private <T> BinaryTreeNode<T> predecessor(BinaryTreeNode<T> n) {
+        BinaryTreeNode<T> pre = n.left();
         if (pre != null) {
-            while (pre.rightChild != null && pre.rightChild != n) pre = pre.rightChild;
+            while (pre.right() != null && pre.right() != n) pre = pre.right();
         }
         return pre;
     }
 
-    private <T> void morris(TreeNode<T> n) {
-        TreeNode<T> pre = null;
+    private <T> void morris(BinaryTreeNode<T> n) {
+        BinaryTreeNode<T> pre = null;
         while (n != null) {
-            ;
-            while ((pre = predecessor(n)) != null && pre.rightChild != n) {
-                pre.rightChild = n;
-                n = n.leftChild;
+            while ((pre = predecessor(n)) != null && pre.right() != n) {
+                pre.setRight(n);
+                n = n.left();
             }
             visit(n);
-            if (pre != null) pre.rightChild = null;
-            n = n.rightChild;
+            if (pre != null) pre.setRight(null);
+            n = n.right();
         }
     }
 
 
-    public <T> void visit(TreeNode<T> n) {
+    public <T> void visit(BinaryTreeNode<T> n) {
         System.out.print(n + " ");
     }
 
-    public <T> void preOrderWalk(TreeNode<T> root) {
-        TreeNode<T> head = root;
-        TreeNode<T> pre = null;
+    public <T> void preOrderWalk(BinaryTreeNode<T> root) {
+        BinaryTreeNode<T> head = root;
+        BinaryTreeNode<T> pre = null;
         while (head != null) {
-            pre = head.leftChild;
-            if(pre != null) {
-                while(pre.rightChild != null && pre.rightChild != head) {
-                    pre = pre.rightChild;
+            pre = head.left();
+            if (pre != null) {
+                while (pre.right() != null && pre.right() != head) {
+                    pre = pre.right();
                 }
-                if(pre.rightChild == null) {
+                if (pre.right() == null) {
                     visit(head);
-                    pre.rightChild = head;
-                    head = head.leftChild;
+                    pre.setRight(head);
+                    head = head.left();
                     continue;
                 } else {
-                    pre.rightChild = null;
+                    pre.setRight(null);
                 }
             } else {
                 visit(head);
             }
-            head = head.rightChild;
+            head = head.right();
         }
     }
 
-    public <T> void midOrderWalk(TreeNode<T> root) {
-        TreeNode<T> head = root;
-        TreeNode<T> pre = null;
+    public <T> void midOrderWalk(BinaryTreeNode<T> root) {
+        BinaryTreeNode<T> head = root;
+        BinaryTreeNode<T> pre = null;
         while (head != null) {
-            pre = head.leftChild;
+            pre = head.left();
             if (pre != null) {
-                while (pre.rightChild != null && pre.rightChild != head) {
-                    pre = pre.rightChild;
+                while (pre.right() != null && pre.right() != head) {
+                    pre = pre.right();
                 }
-                if (pre.rightChild == null) {
-                    pre.rightChild = head;
-                    head = head.leftChild;
+                if (pre.right() == null) {
+                    pre.setRight(head);
+                    head = head.left();
                     continue;
                 } else {
-                    pre.rightChild = null;
+                    pre.setRight(null);
                 }
             }
             visit(head);
-            head = head.rightChild;
+            head = head.right();
         }
     }
 
-    public <T> void postOrderWalk(TreeNode<T> root) {
-        TreeNode<T> head = root;
-        TreeNode<T> pre = null;
-        while(head != null) {
-            pre = head.leftChild;
-            if(pre != null) {
-                while(pre.rightChild != null & pre.rightChild != head) {
-                    pre = pre.rightChild;
+    public <T> void postOrderWalk(BinaryTreeNode<T> root) {
+        BinaryTreeNode<T> head = root;
+        BinaryTreeNode<T> pre = null;
+        while (head != null) {
+            pre = head.left();
+            if (pre != null) {
+                while (pre.right() != null & pre.right() != head) {
+                    pre = pre.right();
                 }
-                if(pre.rightChild == null) {
-                    pre.rightChild = head;
-                    head = head.leftChild;
+                if (pre.right() == null) {
+                    pre.setRight(head);
+                    head = head.left();
                     continue;
-                }else {
-                    pre.rightChild = null;
-                    reverseRightEdge(head.leftChild);
+                } else {
+                    pre.setRight(null);
+                    reverseRightEdge(head.left());
                     visitRightEdge(pre);
                     reverseRightEdge(pre);
                 }
             }
-            head = head.rightChild;
+            head = head.right();
         }
         head = reverseRightEdge(root);
         visitRightEdge(head);
         reverseRightEdge(head);
     }
 
-    private <T> void visitRightEdge(TreeNode<T> from) {
-        while(from != null) {
+    private <T> void visitRightEdge(BinaryTreeNode<T> from) {
+        while (from != null) {
             visit(from);
-            from = from.rightChild;
+            from = from.right();
         }
     }
 
-    private <T> TreeNode<T> reverseRightEdge(TreeNode<T> from) {
-        TreeNode<T> head = from;
-        TreeNode<T> pre = null, next;
-        while(head != null) {
-            next = head.rightChild;
-            head.rightChild = pre;
+    private <T> BinaryTreeNode<T> reverseRightEdge(BinaryTreeNode<T> from) {
+        BinaryTreeNode<T> head = from;
+        BinaryTreeNode<T> pre = null, next;
+        while (head != null) {
+            next = head.right();
+            head.setRight(pre);
             pre = head;
             head = next;
         }

@@ -1,7 +1,6 @@
 package BasicDataStucture;
 
 import chapter3.PrintBianryTree;
-import chapter3.TreeNode;
 
 public class RBTree<T extends Comparable<T>> {
     public enum COLOR {
@@ -10,28 +9,18 @@ public class RBTree<T extends Comparable<T>> {
 
     private int blackHeight = 0;
 
-    static public class RBTreeNode<T extends Comparable<T>> extends TreeNode<T> {
+    static public class RBTreeNode<T extends Comparable<T>> extends AbstractTreeNode<RBTreeNode<T>, T> {
         public COLOR color;
         public RBTreeNode<T> parent;
 
-        public RBTreeNode<T> left() {
-            return (RBTreeNode<T>) super.leftChild;
-        }
-
-        public RBTreeNode<T> right() {
-            return (RBTreeNode<T>) super.rightChild;
-        }
-
-
-        public RBTreeNode(T value, COLOR color, RBTreeNode<T> parent, RBTreeNode<T> leftChild, RBTreeNode<T> rightChild) {
-            super(value, leftChild, rightChild);
+        public RBTreeNode(T value, COLOR color, RBTreeNode<T> parent, RBTreeNode<T> left, RBTreeNode<T> right) {
+            super(value, left, right);
             this.color = color;
             this.parent = parent;
         }
 
         @Override
         public String toString() {
-
             return (color == COLOR.BLACK ? "B" : "R") + " " + value.toString();
         }
     }
@@ -39,36 +28,36 @@ public class RBTree<T extends Comparable<T>> {
     private RBTreeNode<T> root = null;
 
     private void leftRotate(RBTreeNode<T> n) {
-        if (n.rightChild != null) {
-            RBTreeNode<T> rc = n.right();
+        if (n.right != null) {
+            RBTreeNode<T> rc = n.right;
             rc.parent = n.parent;
             if (n != root) {
-                if (n.parent.leftChild == n) n.parent.leftChild = rc;
-                else n.parent.rightChild = rc;
+                if (n.parent.left == n) n.parent.left = rc;
+                else n.parent.right = rc;
             } else {
                 root = rc;
             }
-            if (rc.leftChild != null) rc.left().parent = n;
-            n.rightChild = rc.leftChild;
+            if (rc.left != null) rc.left.parent = n;
+            n.right = rc.left;
             n.parent = rc;
-            rc.leftChild = n;
+            rc.left = n;
         }
     }
 
     private void rightRotate(RBTreeNode<T> n) {
-        if (n.leftChild != null) {
-            RBTreeNode<T> lc = n.left();
+        if (n.left != null) {
+            RBTreeNode<T> lc = n.left;
             lc.parent = n.parent;
             if (n != root) {
-                if (n == n.parent.leftChild) n.parent.leftChild = lc;
-                else n.parent.rightChild = lc;
+                if (n == n.parent.left) n.parent.left = lc;
+                else n.parent.right = lc;
             } else {
                 root = lc;
             }
-            if (lc.rightChild != null) lc.right().parent = n;
-            n.leftChild = lc.rightChild;
+            if (lc.right != null) lc.right.parent = n;
+            n.left = lc.right;
             n.parent = lc;
-            lc.rightChild = n;
+            lc.right = n;
         }
     }
 
@@ -80,16 +69,16 @@ public class RBTree<T extends Comparable<T>> {
             RBTreeNode<T> gp, u, tmp;
             while (true) {
                 if (p.value.compareTo(value) == 0) return false;
-                tmp = p.value.compareTo(value) > 0 ? p.left() : p.right();
+                tmp = p.value.compareTo(value) > 0 ? p.left : p.right;
                 if (tmp == null) break;
                 p = tmp;
             }
             RBTreeNode<T> n = new RBTreeNode<>(value, COLOR.RED, p, null, null);
-            if (p.value.compareTo(value) > 0) p.leftChild = n;
-            else p.rightChild = n;
+            if (p.value.compareTo(value) > 0) p.left = n;
+            else p.right = n;
             while ((p = n.parent) != null && p.color == COLOR.RED) {
                 gp = p.parent;
-                u = gp.leftChild == p ? gp.right() : gp.left();
+                u = gp.left == p ? gp.right : gp.left;
                 if (u != null && u.color == COLOR.RED) {
                     // uncle is red, then uncle, parent, grandparent flip color
                     u.color = COLOR.BLACK;
@@ -98,13 +87,13 @@ public class RBTree<T extends Comparable<T>> {
                     n = gp;             // continue loop
                 } else {                // uncle is null or black then rotate <= 2 times, then exit
                     gp.color = COLOR.RED;
-                    if (n == p.leftChild && p == gp.leftChild) {
+                    if (n == p.left && p == gp.left) {
                         p.color = COLOR.BLACK;
                         rightRotate(gp);
-                    } else if (n == p.rightChild && p == gp.rightChild) {
+                    } else if (n == p.right && p == gp.right) {
                         p.color = COLOR.BLACK;
                         leftRotate(gp);
-                    } else if (n == p.leftChild && p == gp.rightChild) {
+                    } else if (n == p.left && p == gp.right) {
                         n.color = COLOR.BLACK;
                         rightRotate(p);
                         leftRotate(gp);
@@ -121,8 +110,8 @@ public class RBTree<T extends Comparable<T>> {
     }
 
     private RBTreeNode<T> successor(RBTreeNode<T> n) {
-        RBTreeNode<T> rc = n.right();
-        if (rc != null) while (rc.leftChild != null) rc = rc.left();
+        RBTreeNode<T> rc = n.right;
+        if (rc != null) while (rc.left != null) rc = rc.left;
         return rc;
     }
 
@@ -130,9 +119,9 @@ public class RBTree<T extends Comparable<T>> {
         if (n == root) {
             root = null;
         } else {
-            if (n == n.parent.leftChild)
-                n.parent.leftChild = null;
-            else n.parent.rightChild = null;
+            if (n == n.parent.left)
+                n.parent.left = null;
+            else n.parent.right = null;
             n.parent = null;
         }
         return n;
@@ -144,18 +133,18 @@ public class RBTree<T extends Comparable<T>> {
         while (n != null) {
             if (n.value == value || n.value.equals(value))
                 break;
-            n = n.value.compareTo(value) > 0 ? n.left() : n.right();
+            n = n.value.compareTo(value) > 0 ? n.left : n.right;
         }
         if (n == null)
             return null;
-        if (n.leftChild != null && n.rightChild != null) {
+        if (n.left != null && n.right != null) {
             tmp = successor(n);
             n.value = tmp.value;
             n = tmp;
         }
         //n has no more than one child
         if (n.color == COLOR.BLACK) {
-            tmp = n.right() == null ? n.left() : n.right();
+            tmp = n.right == null ? n.left : n.right;
             if (tmp != null) {
                 // the node will be removed is black, and has one child then let its child replace it, then delete it child
                 n.value = tmp.value;
@@ -165,52 +154,52 @@ public class RBTree<T extends Comparable<T>> {
                 RBTreeNode<T> sib;
                 while (n.color == COLOR.BLACK && n != root) {
                     // n represent the node which is one black-height less than it should be
-                    if (n == n.parent.leftChild) {
-                        sib = n.parent.right();
+                    if (n == n.parent.left) {
+                        sib = n.parent.right;
                         if (sib.color == COLOR.RED) {
                             sib.color = COLOR.BLACK;
                             sib.parent.color = COLOR.RED;
                             leftRotate(sib.parent);
-                            sib = n.parent.right();
+                            sib = n.parent.right;
                         }
-                        if (colorOf(sib.leftChild) == COLOR.BLACK &&
-                                colorOf(sib.rightChild) == COLOR.BLACK) {
+                        if (colorOf(sib.left) == COLOR.BLACK &&
+                                colorOf(sib.right) == COLOR.BLACK) {
                             sib.color = COLOR.RED;
                             n = n.parent; //continue
                         } else {
-                            if (colorOf(sib.rightChild) == COLOR.BLACK) {
+                            if (colorOf(sib.right) == COLOR.BLACK) {
                                 sib.color = COLOR.RED;
-                                sib.left().color = COLOR.BLACK;
+                                sib.left.color = COLOR.BLACK;
                                 rightRotate(sib);
                                 sib = sib.parent;
                             }
                             sib.color = sib.parent.color;
                             sib.parent.color = COLOR.BLACK;
-                            sib.right().color = COLOR.BLACK;
+                            sib.right.color = COLOR.BLACK;
                             leftRotate(sib.parent);
                             break;
                         }
                     } else {
-                        sib = n.parent.left();
+                        sib = n.parent.left;
                         if (sib.color == COLOR.RED) {
                             sib.color = COLOR.BLACK;
                             sib.parent.color = COLOR.RED;
                             rightRotate(sib.parent);
-                            sib = n.parent.left();
+                            sib = n.parent.left;
                         }
-                        if (colorOf(sib.leftChild) == COLOR.BLACK && colorOf(sib.rightChild) == COLOR.BLACK) {
+                        if (colorOf(sib.left) == COLOR.BLACK && colorOf(sib.right) == COLOR.BLACK) {
                             sib.color = COLOR.RED;
                             n = n.parent;
                         } else {
-                            if (colorOf(sib.leftChild) == COLOR.BLACK) {
+                            if (colorOf(sib.left) == COLOR.BLACK) {
                                 sib.color = COLOR.RED;
-                                sib.left().color = COLOR.BLACK;
+                                sib.left.color = COLOR.BLACK;
                                 leftRotate(sib);
                                 sib = sib.parent;
                             }
                             sib.color = sib.parent.color;
                             sib.parent.color = COLOR.BLACK;
-                            sib.left().color = COLOR.BLACK;
+                            sib.left.color = COLOR.BLACK;
                             rightRotate(sib.parent);
                             break;
                         }
@@ -220,21 +209,16 @@ public class RBTree<T extends Comparable<T>> {
             }
             n = tmp;
         }
-        return  removeLeaf(n);
+        return removeLeaf(n);
     }
 
-    private void setColor(TreeNode<T> n, COLOR color) {
-        if (n instanceof RBTreeNode) {
-            ((RBTreeNode<T>) n).color = color;
-        }
-    }
 
     private RBTreeNode<T> sibOf(RBTreeNode<T> n) {
-        return (RBTreeNode<T>) (n.parent == null ? null : n == n.parent.leftChild ? n.parent.rightChild : n.parent.rightChild);
+        return (RBTreeNode<T>) (n.parent == null ? null : n == n.parent.left ? n.parent.right : n.parent.right);
     }
 
-    private COLOR colorOf(TreeNode<T> n) {
-        return n == null ? COLOR.BLACK : n instanceof RBTreeNode ? ((RBTreeNode<T>) n).color : COLOR.UNKNOWN;
+    private COLOR colorOf(RBTreeNode<T> n) {
+        return n == null ? COLOR.BLACK : n.color;
     }
 
     public boolean check(RBTree<T> tree) {

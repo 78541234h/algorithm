@@ -1,29 +1,32 @@
 package chapter3;
 
+import BasicDataStucture.BinaryTreeNode;
+import BasicDataStucture.DefaultTreeNode;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class TreePersist {
 
-    public static String persistTree(TreeNode<Integer> root) {
+    public static String persistTree(BinaryTreeNode<Integer> root) {
         if (root == null) return null;
         StringBuilder builder = new StringBuilder();
         persist(root, builder);
         return builder.toString();
     }
 
-    private static void persist(TreeNode<Integer> root, StringBuilder builder) {
+    private static void persist(BinaryTreeNode<Integer> root, StringBuilder builder) {
         if (root == null) {
             builder.append("#!");
             return;
         }
-        builder.append(root.value);
+        builder.append(root.value());
         builder.append("!");
-        persist(root.leftChild, builder);
-        persist(root.rightChild, builder);
+        persist(root.left(), builder);
+        persist(root.right(), builder);
     }
 
-    public static TreeNode<Integer> recoverTree(String str) {
+    public static BinaryTreeNode<Integer> recoverTree(String str) {
         if (str == null) return null;
         String[] vals = str.split("!");
         Queue<String> queue = new LinkedList<>();
@@ -33,73 +36,73 @@ public class TreePersist {
         return recover(queue);
     }
 
-    private static TreeNode<Integer> recover(Queue<String> queue) {
+    private static BinaryTreeNode<Integer> recover(Queue<String> queue) {
         if (queue.isEmpty()) {
             throw new RuntimeException("source is damage!");
         }
         String val = queue.poll();
         if (val.equals("#")) return null;
-        TreeNode<Integer> node = new TreeNode<>(Integer.valueOf(val));
-        node.leftChild = recover(queue);
-        node.rightChild = recover(queue);
+        BinaryTreeNode<Integer> node = new DefaultTreeNode<>(Integer.valueOf(val));
+        node.setLeft(recover(queue));
+        node.setRight(recover(queue));
         return node;
     }
 
-    public static <T> String persistByLevel(TreeNode<T> root) {
+    public static <T> String persistByLevel(BinaryTreeNode<T> root) {
         if (root == null) return null;
-        Queue<TreeNode<T>> queue = new LinkedList<>();
+        Queue<BinaryTreeNode<T>> queue = new LinkedList<>();
         StringBuilder builder = new StringBuilder();
-        builder.append(root.value);
+        builder.append(root.value());
         builder.append("!");
         queue.offer(root);
         while (!queue.isEmpty()) {
-            TreeNode<T> node = queue.poll();
-            if (node.leftChild == null)
+            BinaryTreeNode<T> node = queue.poll();
+            if (node.left() == null)
                 builder.append("#!");
             else {
-                builder.append(node.leftChild.value);
+                builder.append(node.left().value());
                 builder.append("!");
-                queue.offer(node.leftChild); //第一次写这里没有加
+                queue.offer(node.left()); //第一次写这里没有加
             }
-            if (node.rightChild == null)
+            if (node.right() == null)
                 builder.append("#!");
             else {
-                builder.append(node.rightChild.value);
+                builder.append(node.right().value());
                 builder.append("!");
-                queue.offer(node.rightChild);
+                queue.offer(node.right());
             }
         }
         return builder.toString();
     }
 
-    public static TreeNode<Integer> recoverByLevel(String str) {
+    public static BinaryTreeNode<Integer> recoverByLevel(String str) {
         if (str == null) return null;
         String[] arr = str.split("!"); //第一次用了queue来保存这些元素, 其实没必要, 一个arr就好
         int index = 0;
-        Queue<TreeNode<Integer>> nodes = new LinkedList<>();
-        TreeNode<Integer> root = new TreeNode<>(Integer.valueOf(arr[index++]));
+        Queue<BinaryTreeNode<Integer>> nodes = new LinkedList<>();
+        BinaryTreeNode<Integer> root = new DefaultTreeNode<>(Integer.valueOf(arr[index++]));
         nodes.offer(root);
         while (!nodes.isEmpty()) {
-            TreeNode<Integer> head = nodes.poll();
+            BinaryTreeNode<Integer> head = nodes.poll();
             String left = arr[index++];
             String right = arr[index++];
             if (!left.equals("#")) {
-                head.leftChild = new TreeNode<>(Integer.valueOf(left));
-                nodes.offer(head.leftChild);
+                head.setLeft(new DefaultTreeNode<>(Integer.valueOf(left)));
+                nodes.offer(head.left());
             }
             if (!right.equals("#")) {
-                head.rightChild = new TreeNode<>(Integer.valueOf(right));
-                nodes.offer(head.rightChild);
+                head.setRight(new DefaultTreeNode<>(Integer.valueOf(right)));
+                nodes.offer(head.right());
             }
         }
         return root;
     }
 
     public static void main(String[] args) {
-        TreeNode<Integer> node = TreeUtil.mockTree1();
+        BinaryTreeNode<Integer> node = TreeUtil.mockTree1();
         String tree = persistTree(node);
         System.out.println(tree);
-        TreeNode<Integer> recover = recoverTree(tree);
+        BinaryTreeNode<Integer> recover = recoverTree(tree);
         PrintBianryTree.printTree(recover);
         System.out.println("===============================================================");
         tree = persistByLevel(node);
