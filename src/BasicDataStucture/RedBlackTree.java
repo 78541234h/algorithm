@@ -2,11 +2,7 @@ package BasicDataStucture;
 
 import chapter3.PrintBianryTree;
 
-import java.util.LinkedHashMap;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
-public class RBTree<T extends Comparable<T>> {
+public class RedBlackTree<T extends Comparable<T>> {
     public enum COLOR {
         BLACK, RED, UNKNOWN
     }
@@ -225,13 +221,13 @@ public class RBTree<T extends Comparable<T>> {
         return n == null ? COLOR.BLACK : n.color;
     }
 
-    public boolean check(RBTree<T> tree) {
+    public boolean check(RedBlackTree<T> tree) {
 
         return false;
     }
 
     public static void main(String[] args) {
-        RBTree<Integer> tree = new RBTree<>();
+        RedBlackTree<Integer> tree = new RedBlackTree<>();
         for (int i = 20; i >= 1; i--) {
             tree.add(i);
         }

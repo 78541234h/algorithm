@@ -2,7 +2,9 @@ package chapter3;
 
 import BasicDataStucture.BinaryTreeNode;
 import BasicDataStucture.DefaultTreeNode;
+import utils.PrintUtil;
 
+import java.util.Deque;
 import java.util.Formatter;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -54,11 +56,44 @@ public class PrintBianryTree {
     }
 
     public static <T> void printTreeByZigZag(BinaryTreeNode<T> root, boolean leftToRight) {
+        if (root != null) {
+            Deque<BinaryTreeNode<T>> dq = new LinkedList<>();
+            dq.offer(root);
+            BinaryTreeNode<T> cur = null, curTail = null, nextTail = null;
+            curTail = root;
+            while (!dq.isEmpty()) {
+                if (leftToRight) {
+                    cur = dq.pollFirst();
+                    if (cur.left() != null) dq.offerLast(cur.left());
+                    if (cur.right() != null) dq.offerLast(cur.right());
 
+                } else {
+                    cur = dq.pollLast();
+                    if (cur.right() != null) dq.offerFirst(cur.right());
+                    if (cur.left() != null) dq.offerFirst(cur.left());
+                }
+                if (nextTail == null) {
+                    if (leftToRight) {
+                        nextTail = cur.left() == null ? cur.right() : cur.left();
+                    } else {
+                        nextTail = cur.right() == null ? cur.left() : cur.right();
+                    }
+                }
+                PrintUtil.printElement(cur);
+                if (cur == curTail && !dq.isEmpty()) {
+                    leftToRight = !leftToRight;
+                    curTail = nextTail;
+                    nextTail = null;
+                    PrintUtil.newLine();
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
         DefaultTreeNode<Integer> root = TreeUtil.mockTree1();
         print(root, 0, Type.ROOT);
+        PrintUtil.printSepreateLine();
+        printTreeByZigZag(root, true);
     }
 }
