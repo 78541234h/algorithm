@@ -65,10 +65,12 @@ public class ArrayHeap<T extends Comparable<T>> {
         T tmp = arr[index];
         int c;
         while ((c = index * 2 + 1) <= lowerBound) {
-            if (c < lowerBound - 1 && ((arr[c].compareTo(arr[c + 1]) < 0) ^ minTop))
+            if (c < lowerBound && ((arr[c].compareTo(arr[c + 1]) < 0) ^ minTop))
                 c++;
-            if (arr[c].compareTo(tmp) > 0 ^ minTop) index = c;
-            else break;
+            if (arr[c].compareTo(tmp) > 0 ^ minTop) {
+                arr[index] = arr[c];
+                index = c;
+            } else break;
         }
         arr[index] = tmp;
     }
@@ -109,7 +111,11 @@ public class ArrayHeap<T extends Comparable<T>> {
     }
 
     public static void main(String[] args) {
-
+        Integer[] arr = {5, 6, 7, 9, 1, 3, 8, 4, 2};
+        sort(arr, true);
+        for (Integer i : arr) {
+            System.out.print(i + " ");
+        }
     }
 
 }

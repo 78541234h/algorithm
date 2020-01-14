@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="db08f46c-d775-4e4e-a0ab-3b453c3ca905" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BasicDataStucture/AVLTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BasicDataStucture/AVLTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BasicDataStucture/AbstractTreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BasicDataStucture/AbstractTreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BasicDataStucture/RBTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BasicDataStucture/RBTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chapter3/PrintBianryTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chapter3/PrintBianryTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BasicDataStucture/ArrayHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BasicDataStucture/ArrayHeap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +64,21 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
-  <component name="RunManager" selected="Application.PrintTreeBoundary">
+  <component name="RunManager" selected="Application.ArrayHeap">
+    <configuration name="ArrayHeap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="BasicDataStucture.ArrayHeap" />
+      <module name="algorithm" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BasicDataStucture.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BinaryTree" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="chapter3.BinaryTree" />
       <module name="algorithm" />
@@ -124,20 +135,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RBTree" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BasicDataStucture.RBTree" />
-      <module name="algorithm" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="BasicDataStucture.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -162,11 +159,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ArrayHeap" />
         <item itemvalue="Application.PrintTreeBoundary" />
         <item itemvalue="Application.Morris" />
         <item itemvalue="Application.BinaryTree" />
         <item itemvalue="Application.GetTreePathList" />
-        <item itemvalue="Application.RBTree" />
       </list>
     </recent_temporary>
   </component>
@@ -224,7 +221,7 @@
       <workItem from="1578626726987" duration="840000" />
       <workItem from="1578628145452" duration="2320000" />
       <workItem from="1578728787295" duration="602000" />
-      <workItem from="1578922338896" duration="10788000" />
+      <workItem from="1578922338896" duration="12419000" />
     </task>
     <servers />
   </component>
@@ -260,30 +257,30 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="637" y="198" width="636" height="708" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1578530909675" />
-    <state width="718" height="846" key="GridCell.Tab.0.bottom" timestamp="1578499423577">
+    <state width="718" height="846" key="GridCell.Tab.0.bottom" timestamp="1579003957483">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state width="1494" height="338" key="GridCell.Tab.0.bottom/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1577434255976" />
     <state width="721" height="596" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590945" />
-    <state width="718" height="846" key="GridCell.Tab.0.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1578499423577" />
-    <state width="718" height="846" key="GridCell.Tab.0.center" timestamp="1578499423577">
+    <state width="718" height="846" key="GridCell.Tab.0.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1579003957483" />
+    <state width="718" height="846" key="GridCell.Tab.0.center" timestamp="1579003957482">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state width="1494" height="338" key="GridCell.Tab.0.center/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1577434255976" />
     <state width="721" height="596" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590944" />
-    <state width="718" height="846" key="GridCell.Tab.0.center/0.28.1920.1052@0.28.1920.1052" timestamp="1578499423577" />
-    <state width="718" height="846" key="GridCell.Tab.0.left" timestamp="1578499423576">
+    <state width="718" height="846" key="GridCell.Tab.0.center/0.28.1920.1052@0.28.1920.1052" timestamp="1579003957482" />
+    <state width="718" height="846" key="GridCell.Tab.0.left" timestamp="1579003957482">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state width="1494" height="338" key="GridCell.Tab.0.left/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1577434255975" />
     <state width="721" height="596" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590942" />
-    <state width="718" height="846" key="GridCell.Tab.0.left/0.28.1920.1052@0.28.1920.1052" timestamp="1578499423576" />
-    <state width="718" height="846" key="GridCell.Tab.0.right" timestamp="1578499423577">
+    <state width="718" height="846" key="GridCell.Tab.0.left/0.28.1920.1052@0.28.1920.1052" timestamp="1579003957482" />
+    <state width="718" height="846" key="GridCell.Tab.0.right" timestamp="1579003957483">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state width="1494" height="338" key="GridCell.Tab.0.right/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1577434255976" />
     <state width="721" height="596" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590945" />
-    <state width="718" height="846" key="GridCell.Tab.0.right/0.28.1920.1052@0.28.1920.1052" timestamp="1578499423577" />
+    <state width="718" height="846" key="GridCell.Tab.0.right/0.28.1920.1052@0.28.1920.1052" timestamp="1579003957483" />
     <state width="1481" height="246" key="GridCell.Tab.1.bottom" timestamp="1577248059292">
       <screen x="0" y="40" width="1536" height="824" />
     </state>
