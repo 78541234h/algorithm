@@ -1,7 +1,5 @@
 package BasicDataStucture;
 
-import sun.applet.AppletResourceLoader;
-
 abstract public class AbstractTreeNode<C extends AbstractTreeNode<C, V>, V extends Comparable<V>> implements BinaryTreeNode<V> {
     protected V value;
     protected C left;

@@ -4,6 +4,8 @@ import BasicDataStucture.BinaryTreeNode;
 import BasicDataStucture.DefaultTreeNode;
 
 import java.util.Formatter;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PrintBianryTree {
     enum Type {
@@ -24,7 +26,7 @@ public class PrintBianryTree {
         }
         switch (type) {
             case LEFT:
-                formatter.format("%-8s\n", "Λ" + head+ "Λ");
+                formatter.format("%-8s\n", "Λ" + head + "Λ");
                 break;
             case RIGHT:
                 formatter.format("%-8s\n", "V" + head + "V");
@@ -36,7 +38,24 @@ public class PrintBianryTree {
         print(head.left(), level + 1, Type.LEFT);
     }
 
+    public static <T> void printTreeByLevel(BinaryTreeNode<T> root) {
+        if (root != null) {
+            Queue<BinaryTreeNode<T>> queue = new LinkedList<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                BinaryTreeNode<T> node = queue.poll();
+                System.out.print(node + " ");
+                if (node.left() != null)
+                    queue.offer(node.left());
+                if (node.right() != null)
+                    queue.offer(node.right());
+            }
+        }
+    }
 
+    public static <T> void printTreeByZigZag(BinaryTreeNode<T> root, boolean leftToRight) {
+
+    }
 
     public static void main(String[] args) {
         DefaultTreeNode<Integer> root = TreeUtil.mockTree1();
