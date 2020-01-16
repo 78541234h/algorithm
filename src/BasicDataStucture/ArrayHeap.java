@@ -1,13 +1,14 @@
 package BasicDataStucture;
 
 
+import utils.PrintUtil;
+
 public class ArrayHeap<T extends Comparable<T>> {
     private Object[] array;
     private int size;
     private int capacity;
     private boolean minTop = true;
 
-    @SuppressWarnings("unchecked")
     public ArrayHeap(int capacity, boolean minTop) {
         this.capacity = capacity;
         array = new Object[capacity];
@@ -39,6 +40,7 @@ public class ArrayHeap<T extends Comparable<T>> {
         return (T) array[index];
     }
 
+    @SuppressWarnings("unchecked")
     private void shiftUp(int index) {
         shiftUp((T[]) array, index, minTop);
     }
@@ -57,6 +59,7 @@ public class ArrayHeap<T extends Comparable<T>> {
         arr[index] = tmp;
     }
 
+    @SuppressWarnings("unchecked")
     public void shiftDown(int index) {
         shiftDown((T[]) array, index, size - 1, minTop);
     }
@@ -112,10 +115,8 @@ public class ArrayHeap<T extends Comparable<T>> {
 
     public static void main(String[] args) {
         Integer[] arr = {5, 6, 7, 9, 1, 3, 8, 4, 2};
-        sort(arr, true);
-        for (Integer i : arr) {
-            System.out.print(i + " ");
-        }
+        sort(arr, false);
+        PrintUtil.printArray(arr);
     }
 
 }

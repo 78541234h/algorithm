@@ -43,16 +43,58 @@ public class FindTwoErrorNode {
         BinaryTreeNode<T>[] err = getErrorNodes(root);
         BinaryTreeNode<T>[] errParents = getParents(root, err);
         BinaryTreeNode<T> e1 = err[0], e2 = err[1], e1p = errParents[0], e2p = errParents[1];
+        BinaryTreeNode<T> e1L, e1R, e2L, e2R;
         if (e1 == root) {
             if (e1 == e2p) {
+                tmp = e1.left() == e2 ? e1.right() : e1.left();
+                if(e1.left() == e2)  {
+                    e1.setRight(e2.right());
+                    e1.setLeft(e2.left());
+                    e2.setLeft(e1);
+                    e2.setRight(tmp);
+                } else {
+                    e1.setRight(e2.right());
+                    e1.setLeft(e2.left());
+                    e2.setRight(e1);
+                    e2.setLeft(tmp);
+                }
+            } else if(e2 == e2p.left()) {
+                e2p.setLeft(e1);
+                tmp = e1.left();
+                e1.setLeft(e2.left());
+                e2.setLeft(tmp);
+                tmp = e1.right();
+                e1.setRight(e2.right());
+                e2.setRight(tmp);
+            } else {
+                e2p.setRight(e2);
 
-            } else if()
+            }
         } else if (e2 == root) {
             if (e2 == e1p) {
 
+            } else if(e1 == e1p.left()) {
+
+            } else {
+
             }
         } else {
-
+            if(e1 == e1p.left()) {
+                e1p.setLeft(e2);
+            } else{
+                e1p.setRight(e2);
+            }
+            if(e2 == e2p.left()) {
+                e2p.setLeft(e1);
+            }else {
+                e2p.setRight(e1);
+            }
+            tmp = e1.left();
+            e1.setLeft(e2.left());
+            e2.setLeft(tmp);
+            tmp = e1.right();
+            e1.setRight(e2.right());
+            e2.setRight(tmp);
         }
     }
 
@@ -75,5 +117,6 @@ public class FindTwoErrorNode {
                 head = head.right();
             }
         }
+        return par;
     }
 }
