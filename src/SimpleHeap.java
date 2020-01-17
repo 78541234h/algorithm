@@ -1,4 +1,4 @@
-public class Heap {
+public class SimpleHeap {
     public static void main(String[] args) {
         int[] arr = {1, 3, 5, 9, 6, 8, 4, 7, 2};
         buildHeap(arr, 9);

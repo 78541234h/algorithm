@@ -44,4 +44,9 @@ public class DefaultTreeNode<T> implements BinaryTreeNode<T> {
     public String toString() {
         return value.toString();
     }
+
+    @Override
+    public void setValue(T value) {
+        this.value = value;
+    }
 }
