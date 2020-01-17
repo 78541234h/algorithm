@@ -36,4 +36,8 @@ abstract public class AbstractTreeNode<C extends AbstractTreeNode<C, V>, V exten
         return right;
     }
 
+    @Override
+    public void setValue(V value) {
+        this.value = value;
+    }
 }

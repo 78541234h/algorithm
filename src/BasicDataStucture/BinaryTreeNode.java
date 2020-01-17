@@ -11,4 +11,5 @@ public interface BinaryTreeNode<T> {
 
     void setRight(BinaryTreeNode<T> node);
 
+    void setValue(T value);
 }

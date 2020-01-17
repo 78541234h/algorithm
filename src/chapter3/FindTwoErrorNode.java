@@ -1,12 +1,53 @@
 package chapter3;
 
 import BasicDataStucture.BinaryTreeNode;
+import utils.PrintUtil;
 
 import java.util.Stack;
 
 public class FindTwoErrorNode {
     public static void main(String[] args) {
+        test4();
+    }
 
+    private static void test1() {// swap root and its left child, and correct the tree
+        BinaryTreeNode<Integer> root = TreeUtil.mockTree2();
+        root.setValue(2);
+        root.left().setValue(4);
+        PrintUtil.print(root);
+        PrintUtil.printSepreateLine();
+        correctErrorNodes(root);
+        PrintUtil.print(root);
+    }
+
+    private static void test2() {// swap two nodes without directly relation, and correct the tree
+        BinaryTreeNode<Integer> root = TreeUtil.mockTree2();
+        root.left().setValue(6);
+        root.right().setValue(2);
+        PrintUtil.print(root);
+        PrintUtil.printSepreateLine();
+        correctErrorNodes(root);
+        PrintUtil.print(root);
+    }
+
+    private static void test3() {// swap root and an any node except root's children, and correct the tree
+        BinaryTreeNode<Integer> root = TreeUtil.mockTree2();
+        root.setValue(1);
+        root.left().left().setValue(4);
+        PrintUtil.print(root);
+        PrintUtil.printSepreateLine();
+        correctErrorNodes(root);
+        PrintUtil.print(root);
+    }
+
+    private static void test4() {//swap a node and its' parent which is not root, and correct the tree
+        BinaryTreeNode<Integer> root = TreeUtil.mockTree2();
+        root.left().setValue(1);
+        root.left().left().setValue(2);
+        PrintUtil.print(root);
+        PrintUtil.printSepreateLine();
+        correctErrorNodes(root);
+        PrintUtil.print(root);
     }
 
 
@@ -44,14 +85,14 @@ public class FindTwoErrorNode {
         BinaryTreeNode<T>[] errParents = getParents(root, err);
         BinaryTreeNode<T> e1 = err[0], e2 = err[1], e1P = errParents[0], e2P = errParents[1];
         BinaryTreeNode<T> e1L = e1.left(), e1R = e1.right(), e2L = e2.left(), e2R = e2.right();
-        // parents setting
-        if (!((e1 == e2P && e1 != root) || (e2 == root && e2 != e1P))) {
+        // parents setting, using exclusive method
+        if (!(e1 == e2P || e2 == root)) {
             if (e2P.left() == e2)
                 e2P.setLeft(e1);
             else
                 e2P.setRight(e1);
         }
-        if (!((e2 == e1P && e2 != root) || (e1 == root && e1 != e2P))) {
+        if (!(e2 == e1P || e1 == root)) {
             if (e1P.left() == e1)
                 e1P.setLeft(e2);
             else
