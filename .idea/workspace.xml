@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="db08f46c-d775-4e4e-a0ab-3b453c3ca905" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BasicDataStucture/ArrayHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BasicDataStucture/ArrayHeap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BasicDataStucture/FibonacciHeap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BasicDataStucture/FibonacciHeap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Heap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SimpleHeap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/algorithm/Heap.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chapter3/FindTwoErrorNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chapter3/FindTwoErrorNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/PrintUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/PrintUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,9 +63,9 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunManager" selected="Application.ArrayHeap">
+  <component name="RunManager" selected="Application.FindTwoErrorNode">
     <configuration name="ArrayHeap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="BasicDataStucture.ArrayHeap" />
       <module name="algorithm" />
@@ -83,8 +80,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Morris" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="chapter3.Morris" />
+    <configuration name="FindTwoErrorNode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="chapter3.FindTwoErrorNode" />
       <module name="algorithm" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
@@ -163,11 +160,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FindTwoErrorNode" />
         <item itemvalue="Application.ArrayHeap" />
         <item itemvalue="Application.RedBlackTree" />
         <item itemvalue="Application.PrintBianryTree" />
         <item itemvalue="Application.PrintTreeBoundary" />
-        <item itemvalue="Application.Morris" />
       </list>
     </recent_temporary>
   </component>
@@ -261,28 +258,28 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="637" y="198" width="636" height="708" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1578530909675" />
-    <state width="1481" height="330" key="GridCell.Tab.0.bottom" timestamp="1579142840287">
+    <state width="1481" height="330" key="GridCell.Tab.0.bottom" timestamp="1579245926171">
       <screen x="0" y="40" width="1536" height="824" />
     </state>
-    <state width="1481" height="330" key="GridCell.Tab.0.bottom/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579142840287" />
+    <state width="1481" height="330" key="GridCell.Tab.0.bottom/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579245926171" />
     <state width="721" height="596" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590945" />
     <state width="718" height="846" key="GridCell.Tab.0.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1579013560526" />
-    <state width="1481" height="330" key="GridCell.Tab.0.center" timestamp="1579142840287">
+    <state width="1481" height="330" key="GridCell.Tab.0.center" timestamp="1579245926170">
       <screen x="0" y="40" width="1536" height="824" />
     </state>
-    <state width="1481" height="330" key="GridCell.Tab.0.center/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579142840287" />
+    <state width="1481" height="330" key="GridCell.Tab.0.center/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579245926170" />
     <state width="721" height="596" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590944" />
     <state width="718" height="846" key="GridCell.Tab.0.center/0.28.1920.1052@0.28.1920.1052" timestamp="1579013560525" />
-    <state width="1481" height="330" key="GridCell.Tab.0.left" timestamp="1579142840286">
+    <state width="1481" height="330" key="GridCell.Tab.0.left" timestamp="1579245926170">
       <screen x="0" y="40" width="1536" height="824" />
     </state>
-    <state width="1481" height="330" key="GridCell.Tab.0.left/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579142840286" />
+    <state width="1481" height="330" key="GridCell.Tab.0.left/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579245926170" />
     <state width="721" height="596" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590942" />
     <state width="718" height="846" key="GridCell.Tab.0.left/0.28.1920.1052@0.28.1920.1052" timestamp="1579013560525" />
-    <state width="1481" height="330" key="GridCell.Tab.0.right" timestamp="1579142840287">
+    <state width="1481" height="330" key="GridCell.Tab.0.right" timestamp="1579245926171">
       <screen x="0" y="40" width="1536" height="824" />
     </state>
-    <state width="1481" height="330" key="GridCell.Tab.0.right/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579142840287" />
+    <state width="1481" height="330" key="GridCell.Tab.0.right/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579245926171" />
     <state width="721" height="596" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1577498590945" />
     <state width="718" height="846" key="GridCell.Tab.0.right/0.28.1920.1052@0.28.1920.1052" timestamp="1579013560526" />
     <state width="1481" height="246" key="GridCell.Tab.1.bottom" timestamp="1577248059292">
@@ -305,10 +302,10 @@
     </state>
     <state width="1481" height="246" key="GridCell.Tab.1.right/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1577248059292" />
     <state width="760" height="909" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1576903373654" />
-    <state x="0" y="28" width="1880" height="1052" key="SettingsEditor" timestamp="1578531148178">
-      <screen x="0" y="28" width="1920" height="1052" />
+    <state x="0" y="40" width="1880" height="1052" key="SettingsEditor" timestamp="1579249061672">
+      <screen x="0" y="40" width="1536" height="824" />
     </state>
-    <state x="0" y="40" key="SettingsEditor/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1577094638352" />
+    <state x="0" y="40" key="SettingsEditor/-2560.50.2560.1390/0.40.1536.824@0.40.1536.824" timestamp="1579249061672" />
     <state x="0" y="27" width="1920" height="1053" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1576891433194" />
     <state x="0" y="28" width="1880" height="1052" key="SettingsEditor/0.28.1920.1052@0.28.1920.1052" timestamp="1578531148178" />
     <state x="416" y="240" key="com.intellij.ide.util.TipDialog" timestamp="1577154426798">

@@ -42,60 +42,26 @@ public class FindTwoErrorNode {
     public static <T extends Comparable<T>> void correctErrorNodes(BinaryTreeNode<T> root) {
         BinaryTreeNode<T>[] err = getErrorNodes(root);
         BinaryTreeNode<T>[] errParents = getParents(root, err);
-        BinaryTreeNode<T> e1 = err[0], e2 = err[1], e1p = errParents[0], e2p = errParents[1];
-        BinaryTreeNode<T> e1L, e1R, e2L, e2R;
-        if (e1 == root) {
-            if (e1 == e2p) {
-                tmp = e1.left() == e2 ? e1.right() : e1.left();
-                if(e1.left() == e2)  {
-                    e1.setRight(e2.right());
-                    e1.setLeft(e2.left());
-                    e2.setLeft(e1);
-                    e2.setRight(tmp);
-                } else {
-                    e1.setRight(e2.right());
-                    e1.setLeft(e2.left());
-                    e2.setRight(e1);
-                    e2.setLeft(tmp);
-                }
-            } else if(e2 == e2p.left()) {
-                e2p.setLeft(e1);
-                tmp = e1.left();
-                e1.setLeft(e2.left());
-                e2.setLeft(tmp);
-                tmp = e1.right();
-                e1.setRight(e2.right());
-                e2.setRight(tmp);
-            } else {
-                e2p.setRight(e2);
-
-            }
-        } else if (e2 == root) {
-            if (e2 == e1p) {
-
-            } else if(e1 == e1p.left()) {
-
-            } else {
-
-            }
-        } else {
-            if(e1 == e1p.left()) {
-                e1p.setLeft(e2);
-            } else{
-                e1p.setRight(e2);
-            }
-            if(e2 == e2p.left()) {
-                e2p.setLeft(e1);
-            }else {
-                e2p.setRight(e1);
-            }
-            tmp = e1.left();
-            e1.setLeft(e2.left());
-            e2.setLeft(tmp);
-            tmp = e1.right();
-            e1.setRight(e2.right());
-            e2.setRight(tmp);
+        BinaryTreeNode<T> e1 = err[0], e2 = err[1], e1P = errParents[0], e2P = errParents[1];
+        BinaryTreeNode<T> e1L = e1.left(), e1R = e1.right(), e2L = e2.left(), e2R = e2.right();
+        // parents setting
+        if (!((e1 == e2P && e1 != root) || (e2 == root && e2 != e1P))) {
+            if (e2P.left() == e2)
+                e2P.setLeft(e1);
+            else
+                e2P.setRight(e1);
         }
+        if (!((e2 == e1P && e2 != root) || (e1 == root && e1 != e2P))) {
+            if (e1P.left() == e1)
+                e1P.setLeft(e2);
+            else
+                e1P.setRight(e2);
+        }
+        //children setting
+        e1.setLeft(e1 == e2L ? e2 : e2L);
+        e1.setRight(e1 == e2R ? e2 : e2R);
+        e2.setLeft(e2 == e1L ? e1 : e1L);
+        e2.setRight(e2 == e2R ? e1 : e1R);
     }
 
     private static <T> BinaryTreeNode<T>[] getParents(BinaryTreeNode<T> root, BinaryTreeNode<T>[] err) {
