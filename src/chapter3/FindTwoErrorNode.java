@@ -60,19 +60,16 @@ public class FindTwoErrorNode {
                     pre = pre.right();
                 }
                 if (pre.right() == cur) {
-                    pre.setRight(null);
+                    pre.setRight(null);   //non-leaf node second visit
                 } else {
-                    pre.setRight(cur);
+                    pre.setRight(cur);   // non-leaf node first visit
                     cur = cur.left();
                     continue;
                 }
             }
             if (preVisit != null && preVisit.value().compareTo(cur.value()) > 0) {
-                if (err[0] == null) {
-                    err[0] = preVisit;
-                } else {
-                    err[1] = cur;
-                }
+                err[0] = err[0] == null ? pre : err[0];  //be careful here
+                err[1] = cur;
             }
             preVisit = cur;
             cur = cur.right();
