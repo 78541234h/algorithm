@@ -3,17 +3,13 @@ package chapter8;
 import utils.PrintUtil;
 import utils.RandomUtil;
 
-import java.util.PriorityQueue;
-import java.util.Random;
-import java.util.Stack;
-
 public class TopKInUnsortedArray {
     public static void main(String[] args) {
         test1();
     }
 
     public static void test1() {
-        Integer[] tArr = RandomUtil.randomIntArray(0, 100, 10000000);
+        Integer[] tArr = RandomUtil.randomIntArray(0, 1000000, 10000000);
 
         Integer[] res0 = new Integer[50];
         long start = System.currentTimeMillis();
