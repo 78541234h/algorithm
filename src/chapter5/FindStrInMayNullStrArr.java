@@ -1,11 +1,15 @@
 package chapter5;
 
+import utils.PrintUtil;
+
 public class FindStrInMayNullStrArr {
     public static void main(String[] args) {
+        test();
     }
 
     public static void test() {
-
+        String[] arr = {null, "a", null, "a", null, "b", null, "c"};
+        PrintUtil.print(findPos(arr, "a"));
     }
 
     public static int findPos(String[] arr, String s) {
