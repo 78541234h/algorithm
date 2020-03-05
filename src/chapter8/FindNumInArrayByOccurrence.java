@@ -40,8 +40,8 @@ public class FindNumInArrayByOccurrence {
             }
         }
         times = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == cand)
+        for (Integer integer : arr) {
+            if (integer == cand)
                 times++;
         }
         if (times > arr.length / 2)
