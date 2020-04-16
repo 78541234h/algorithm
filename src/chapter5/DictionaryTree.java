@@ -1,5 +1,7 @@
 package chapter5;
 
+import utils.PrintUtil;
+
 public class DictionaryTree {
     private TreeNode root;
 
@@ -62,9 +64,17 @@ public class DictionaryTree {
     }
 
     public static void main(String[] args) {
-
+        test();
     }
 
+    public static void test() {
+        String s1 = "word";
+        DictionaryTree tree = new DictionaryTree();
+        tree.insert(s1);
+        PrintUtil.print(tree.search(s1));
+        tree.delete(s1);
+        PrintUtil.print(tree.search(s1));
+    }
 
     private static class TreeNode {
         public int path;
