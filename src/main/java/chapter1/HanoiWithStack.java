@@ -7,7 +7,6 @@ import java.util.Stack;
 
 // this problem is the modified hanoi problem
 // .
-
 public class HanoiWithStack {
     public static void hanoiRecur(int n) {
         if (n < 1) return;

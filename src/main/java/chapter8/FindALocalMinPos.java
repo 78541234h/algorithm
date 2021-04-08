@@ -4,7 +4,6 @@ public class FindALocalMinPos {
     public static void main(String[] args) {
 
     }
-
     public int findPos(int[] arr) {
         if (arr == null || arr.length == 0) return -1;
         if (arr.length == 1 || arr[0] < arr[1]) return 0;

@@ -1,11 +1,25 @@
 package chapter8;
 
-import utils.RandomUtil;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class SortNatureNumber {
     public static void main(String[] args) {
-        test();
+        //test();
+
+        Scanner in = new Scanner(System.in);
+        Stack<String> s = new Stack<String>();
+        while (!in.hasNext("efo")) {// in.hasNext()永远为真
+            String str = in.nextLine();
+            if (!str.equals("-"))
+                s.push(str);
+            else if (!s.isEmpty())
+                System.out.println(s.pop() + " ");
+        }
+        // 这个语句永远无法执行
+        System.out.println("(" + s.size() + "left on stack)");
     }
+
 
     public static void test() {
         Integer[] arr = {1, 2, 5, 3, 4};
@@ -41,12 +55,12 @@ public class SortNatureNumber {
     public static void sort2(Integer[] arr) {
         for (int i = 0; i < arr.length; i++) {
             int curval = arr[i];
-            if (curval != i + 1) {
+            while (arr[i] != i + 1) {
                 int tmp = arr[curval - 1];
-                arr[arr[i] - 1] = curval;
+                arr[curval - 1] = curval;
                 arr[i] = tmp;
+                curval = tmp;
             }
         }
     }
-
 }
