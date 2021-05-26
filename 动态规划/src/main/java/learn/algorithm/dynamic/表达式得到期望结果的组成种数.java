@@ -18,7 +18,6 @@ public class 表达式得到期望结果的组成种数 {
                 return false;
             if ((i) % 2 == 1 && c != '|' && c != '^' && c != '&')
                 return false;
-
         }
         return true;
     }
